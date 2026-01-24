@@ -3,3 +3,4 @@
 wandb/
 cases.csv
 cases_cleaned.csv
+models/
