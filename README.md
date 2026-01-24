@@ -19,7 +19,7 @@ The dataset was partitioned into training (70%) and testing (20%) sets. To ensur
 
 ### Handling Class Imbalance
 
-To address the class imbalance in our dataset (Civil: 2878 samples, Criminal: 307 samples), class-weighted training is implemented.
+To address the class imbalance in the dataset (Civil: 2878 samples, Criminal: 307 samples), class-weighted training is implemented.
 
 **Weight Calculation:**
 
