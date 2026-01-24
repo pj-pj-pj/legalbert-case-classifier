@@ -1,0 +1,5 @@
+.venv/
+.ipynb_checkpoints/
+wandb/
+cases.csv
+cases_cleaned.csv
