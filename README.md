@@ -13,13 +13,21 @@ google colab environment for training a legalbert model ([nlpaueb/legal-bert-bas
 
 -> saved to cases_cleaned.csv
 
-### Dataset Splitting
+### Corpus Composition
+
+| Category              | Count  |
+| --------------------- | ------ |
+| Criminal Cases (4.8%) | 1,537  |
+| Civil Cases (45.1%)   | 14,385 |
+| Total cases           | 15,922 |
+
+### Splitting
 
 The dataset was partitioned into training (70%) and testing (20%) sets. To ensure the model is evaluated on a realistic distribution of cases, stratified sampling is used based on the `label` column.
 
 ### Handling Class Imbalance
 
-To address the class imbalance in the dataset (Civil: 2878 samples, Criminal: 307 samples), class-weighted training is implemented.
+To address the class imbalance in the dataset, class-weighted training is implemented.
 
 **Weight Calculation:**
 
@@ -59,4 +67,4 @@ To address the class imbalance in the dataset (Civil: 2878 samples, Criminal: 30
 
 ### Confusion Matrix
 
-![Alt text](cm_20260124_152458.png)
+![Alt text](reports/cm_20260124_152458.png)
