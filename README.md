@@ -1,13 +1,14 @@
 # legalbert-case-classifier
 
-google colab environment for training a legalbert model ([nlpaueb/legal-bert-base-uncased](https://huggingface.co/nlpaueb/legal-bert-base-uncased)) as a binary case classifier (criminal vs civil)
+google colab environment for training a legalbert model ([nlpaueb/legal-bert-base-uncased](https://huggingface.co/nlpaueb/legal-bert-base-uncased)) as case classifier for legal fees, criminal, and civil cases
 
 ## Data Preprocessing/Cleaning
 
-(taken from the [Supreme Court E-Library](https://elibrary.judiciary.gov.ph/)) scraped at [sc-scraper](https://github.com/pj-pj-pj/sc-scraper).
+criminal and civil data class are taken from the [Supreme Court E-Library](https://elibrary.judiciary.gov.ph/) scraped at [sc-scraper](https://github.com/pj-pj-pj/sc-scraper), legal_fees are generated using data/legal_fees/generate_lf.py on this repo
 
 - line breaks and tabs are replaced with ' '
-- removed dates and numbers
+- removed dates
+- removed numbers (except for legal fees)
 - legal punctuation are preserved, excessive special chars are removed
 - normalize whitespace
 
@@ -15,11 +16,12 @@ google colab environment for training a legalbert model ([nlpaueb/legal-bert-bas
 
 ### Corpus Composition
 
-| Category              | Count  |
-| --------------------- | ------ |
-| Criminal Cases (4.8%) | 1,537  |
-| Civil Cases (45.1%)   | 14,385 |
-| Total cases           | 15,922 |
+| Category       | Count  |
+| -------------- | ------ |
+| Civil Cases    | 14,385 |
+| Criminal Cases | 1,537  |
+| Legal Fees     | 800    |
+| Total cases    | 16,722 |
 
 ### Splitting
 
@@ -31,8 +33,12 @@ To address the class imbalance in the dataset, class-weighted training is implem
 
 **Weight Calculation:**
 
-- Civil class weight: 0.5534457286868862
-- Criminal class weight: 5.177642276422764
+<!-- - Civil class weight: 0.5534457286868862
+- Criminal class weight: 5.177642276422764 -->
+
+- Civil (0): 0.38750325888589554
+- Criminal (1): 3.62520325203252
+- Legal Fees (2): 6.9671875
 
 `WeightedTrainer` class uses `CrossEntropyLoss` with these computed weights, ensuring the Criminal class (minority) has approximately 9× more influence during training.
 
@@ -41,30 +47,34 @@ To address the class imbalance in the dataset, class-weighted training is implem
 | Hyperparameter | Value |
 | -------------- | ----- |
 | Batch Size     | 8     |
-| Epochs         | 1     |
+| Epochs         | 2     |
 | FP16           | True  |
 
 ## Final Model
 
 ### Training Output
 
-| Epoch | Training Loss | Validation Loss | Accuracy | Precision Macro | Recall Macro | F1 Macro |
+<!-- | Epoch | Training Loss | Validation Loss | Accuracy | Precision Macro | Recall Macro | F1 Macro |
 | --- | --- | --- | --- | --- | --- | --- |
 | 1 | 0.273500 | 0.088990 | 0.994976 | 0.991232 | 0.979761 | 0.985411 |
 
-`TrainOutput(global_step=1593, training_loss=0.14244856708456527, metrics={'train_runtime': 391.5887, 'train_samples_per_second': 32.526, 'train_steps_per_second': 4.068, 'total_flos': 3351245512120320.0, 'train_loss': 0.14244856708456527, 'epoch': 1.0})`
+`TrainOutput(global_step=1593, training_loss=0.14244856708456527, metrics={'train_runtime': 391.5887, 'train_samples_per_second': 32.526, 'train_steps_per_second': 4.068, 'total_flos': 3351245512120320.0, 'train_loss': 0.14244856708456527, 'epoch': 1.0})` -->
+
+![Alt text](reports/train_output_20260125_145604.png)
 
 ### Classification Report
 
-|              | precision | recall | f1-score | support |
+<!-- |              | precision | recall | f1-score | support |
 | ------------ | --------- | ------ | -------- | ------- |
 | civil        | 0.9958    | 0.9986 | 0.9972   | 2878    |
 | criminal     | 0.9866    | 0.9609 | 0.9736   | 307     |
 |              |           |        |          |         |
 | accuracy     |           |        | 0.9950   | 3185    |
 | macro avg    | 0.9912    | 0.9798 | 0.9854   | 3185    |
-| weighted avg | 0.9950    | 0.9950 | 0.9949   | 3185    |
+| weighted avg | 0.9950    | 0.9950 | 0.9949   | 3185    | -->
+
+![Alt text](reports/report_20260125_145604.png)
 
 ### Confusion Matrix
 
-![Alt text](reports/cm_20260124_152458.png)
+![Alt text](reports/cm_20260125_145604.png)
