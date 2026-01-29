@@ -1,6 +1,8 @@
 .venv/
 .ipynb_checkpoints/
 wandb/
+models/
+
+# data/
 cases.csv
 cases_cleaned.csv
-models/

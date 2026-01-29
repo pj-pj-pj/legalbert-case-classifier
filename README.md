@@ -4,7 +4,7 @@ google colab environment for training a legalbert model ([nlpaueb/legal-bert-bas
 
 ## Data Preprocessing/Cleaning
 
-criminal and civil data class are taken from the [Supreme Court E-Library](https://elibrary.judiciary.gov.ph/) scraped at [sc-scraper](https://github.com/pj-pj-pj/sc-scraper), legal_fees are generated using data/legal_fees/generate_lf.py on this repo
+criminal and civil data class are taken from the [Supreme Court E-Library](https://elibrary.judiciary.gov.ph/) scraped at [sc-scraper](https://github.com/pj-pj-pj/sc-scraper)
 
 - line breaks and tabs are replaced with ' '
 - removed dates
